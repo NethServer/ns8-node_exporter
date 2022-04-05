@@ -1,0 +1,19 @@
+{
+  "name": "prometheus",
+  "description": {
+    "en": "My prometheus module"
+  },
+  "categories": [],
+  "authors": [
+    {
+      "name": "Name Surname",
+      "email": "author@yourmail.org"
+    }
+  ],
+  "docs": {
+    "documentation_url": "https://docs.prometheus.com/",
+    "bug_url": "https://github.com/NethServer/dev",
+    "code_url": "https://github.com/author/ns8-prometheus"
+  },
+  "source": "ghcr.io/nethserver/prometheus"
+}
