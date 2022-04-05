@@ -3,7 +3,8 @@
 Start and configure a node_exporter instance.
 The module use the [node_exporter official docker image](https://github.com/prometheus/node_exporter).
 
-This is a rootfull module. A node should run only one node_exporter instance.
+This is a rootfull module.
+The node_exporter listens to 127.0.0.1:9100 so a node can run only one instance.
 
 ## Install
 
