@@ -1,19 +1,19 @@
 {
-  "name": "prometheus",
+  "name": "node_exporter",
   "description": {
-    "en": "My prometheus module"
+    "en": "Prometheus node_exporter"
   },
-  "categories": [],
+  "categories": ["monitoring"],
   "authors": [
     {
-      "name": "Name Surname",
-      "email": "author@yourmail.org"
+      "name": "Giacomo Sanchietti",
+      "email": "giacomo.sanchietti@gmail.com"
     }
   ],
   "docs": {
-    "documentation_url": "https://docs.prometheus.com/",
+    "documentation_url": "https://github.com/prometheus/node_exporter",
     "bug_url": "https://github.com/NethServer/dev",
-    "code_url": "https://github.com/author/ns8-prometheus"
+    "code_url": "https://github.com/NethServer/ns8-node_exporter"
   },
-  "source": "ghcr.io/nethserver/prometheus"
+  "source": "ghcr.io/nethserver/node_exporter"
 }

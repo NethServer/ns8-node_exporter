@@ -15,36 +15,26 @@
         />
       </cv-column>
     </cv-row>
-    <cv-row v-if="error.listBackupRepositories">
-      <cv-column>
-        <NsInlineNotification
-          kind="error"
-          :title="$t('action.list-backup-repositories')"
-          :description="error.listBackupRepositories"
-          :showCloseButton="false"
-        />
-      </cv-column>
-    </cv-row>
-    <cv-row v-if="error.listBackups">
-      <cv-column>
-        <NsInlineNotification
-          kind="error"
-          :title="$t('action.list-backups')"
-          :description="error.listBackups"
-          :showCloseButton="false"
-        />
-      </cv-column>
-    </cv-row>
     <cv-row>
       <cv-column :md="4" :max="4">
         <NsInfoCard
           light
           :title="status.instance || '-'"
-          :description="$t('status.app_instance')"
           :icon="Application32"
           :loading="loading.getStatus"
           class="min-height-card"
-        />
+        >
+          <template #content>
+            <div class="card-content">
+              <div class="row">
+                {{ $t("status.app_url") }}:
+                <a  target="_blank" :href="`http://${status.fqdn}/${status.path}`"
+                  >/{{ status.path }}</a
+                >
+              </div>
+            </div>
+          </template>
+        </NsInfoCard>
       </cv-column>
       <cv-column :md="4" :max="4">
         <NsInfoCard
@@ -55,31 +45,6 @@
           :icon="Chip32"
           :loading="loading.getStatus"
           class="min-height-card"
-        />
-      </cv-column>
-      <cv-column :md="4" :max="4">
-        <NsBackupCard
-          :title="core.$t('backup.title')"
-          :noBackupMessage="core.$t('backup.no_backup_configured')"
-          :goToBackupLabel="core.$t('backup.go_to_backup')"
-          :repositoryLabel="core.$t('backup.repository')"
-          :statusLabel="core.$t('common.status')"
-          :statusSuccessLabel="core.$t('common.success')"
-          :statusNotRunLabel="core.$t('backup.backup_has_not_run_yet')"
-          :statusErrorLabel="core.$t('error.error')"
-          :completedLabel="core.$t('backup.completed')"
-          :durationLabel="core.$t('backup.duration')"
-          :totalSizeLabel="core.$t('backup.total_size')"
-          :totalFileCountLabel="core.$t('backup.total_file_count')"
-          :backupDisabledLabel="core.$t('common.disabled')"
-          :showMoreLabel="core.$t('common.show_more')"
-          :moduleId="instanceName"
-          :moduleUiName="instanceLabel"
-          :repositories="backupRepositories"
-          :backups="backups"
-          :loading="loading.listBackupRepositories || loading.listBackups"
-          :coreContext="core"
-          light
         />
       </cv-column>
       <cv-column :md="4" :max="4">
@@ -191,59 +156,6 @@
         </cv-tile>
       </cv-column>
     </cv-row>
-    <!-- volumes -->
-    <cv-row>
-      <cv-column class="page-subtitle">
-        <h4>{{ $tc("status.app_volumes", 2) }}</h4>
-      </cv-column>
-    </cv-row>
-    <cv-row>
-      <cv-column>
-        <cv-tile light>
-          <div v-if="!loading.getStatus">
-            <NsEmptyState
-              v-if="!status.volumes.length"
-              :title="$t('status.no_volumes')"
-            >
-            </NsEmptyState>
-            <cv-structured-list v-else>
-              <template slot="headings">
-                <cv-structured-list-heading>{{
-                  $t("status.name")
-                }}</cv-structured-list-heading>
-                <cv-structured-list-heading>{{
-                  $t("status.mount")
-                }}</cv-structured-list-heading>
-                <cv-structured-list-heading>{{
-                  $t("status.created")
-                }}</cv-structured-list-heading>
-              </template>
-              <template slot="items">
-                <cv-structured-list-item
-                  v-for="(volume, index) in status.volumes"
-                  :key="index"
-                >
-                  <cv-structured-list-data>{{
-                    volume.name
-                  }}</cv-structured-list-data>
-                  <cv-structured-list-data class="break-word">{{
-                    volume.mount
-                  }}</cv-structured-list-data>
-                  <cv-structured-list-data>{{
-                    volume.created
-                  }}</cv-structured-list-data>
-                </cv-structured-list-item>
-              </template>
-            </cv-structured-list>
-          </div>
-          <cv-skeleton-text
-            v-else
-            :paragraph="true"
-            :line-count="5"
-          ></cv-skeleton-text>
-        </cv-tile>
-      </cv-column>
-    </cv-row>
   </cv-grid>
 </template>
 
@@ -339,7 +251,7 @@ export default {
     async getStatus() {
       this.loading.getStatus = true;
       this.error.getStatus = "";
-      const taskAction = "get-status";
+      const taskAction = "get-exporter-status";
       const eventId = this.getUuid();
 
       // register to task error
