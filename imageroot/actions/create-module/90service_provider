@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+#
+# Copyright (C) 2023 Nethesis S.r.l.
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+
+'''
+Expose metrics.
+'''
+
+import os
+
+import agent
+
+# expose service provider
+with agent.redis_connect() as ro_redis_client:
+    host = ro_redis_client.hget(f'node/{os.environ["NODE_ID"]}/vpn', 'ip_address')
+    with agent.redis_connect(privileged=True) as redis_client:
+        module_id = os.environ["MODULE_ID"]
+        redis_client.hset(f'module/{module_id}/srv/http/prometheus-metrics', 'host', host)
+        redis_client.hset(f'module/{module_id}/srv/http/prometheus-metrics',
+                          'path', os.environ["NODE_EXPORTER_PATH"])
+        redis_client.publish(f'module/{module_id}/event/service-prometheus-metrics-updated', '{}')
