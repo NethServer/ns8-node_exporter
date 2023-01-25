@@ -7,13 +7,26 @@ repobase="${REPOBASE:-ghcr.io/nethserver}"
 reponame="node_exporter"
 container=$(buildah from scratch)
 
+# Reuse existing nodebuilder-node_exporter container, to speed up builds
+if ! buildah containers --format "{{.ContainerName}}" | grep -q nodebuilder-node_exporter; then
+    echo "Pulling NodeJS runtime..."
+    buildah from --name nodebuilder-node_exporter -v "${PWD}:/usr/src:Z" docker.io/library/node:18.13.0-alpine
+fi
+
+echo "Build static UI files with node..."
+buildah run \
+    --workingdir "/usr/src/ui" \
+    --env "NODE_OPTIONS=--openssl-legacy-provider" \
+    nodebuilder-node_exporter \
+    sh -c "yarn install --frozen-lockfile && yarn build"
+
 buildah add "${container}" imageroot /imageroot
-buildah add "${container}" ui /ui
+buildah add "${container}" ui/dist /ui
 buildah config --entrypoint=/ "${container}"
 buildah config --label="org.nethserver.rootfull=1" \
     --label="org.nethserver.authorizations=traefik@any:routeadm" \
     --label="org.nethserver.flags=no_data_backup" \
-	--label="org.nethserver.images=quay.io/prometheus/node-exporter:v1.3.1" \
+	--label="org.nethserver.images=quay.io/prometheus/node-exporter:v1.5.0" \
 	"${container}"
 buildah commit "${container}" "${repobase}/${reponame}"
 images+=("${repobase}/${reponame}")
