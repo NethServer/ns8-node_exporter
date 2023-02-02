@@ -14,7 +14,7 @@ import os
 import agent
 
 # remove configuration
-with agent.redis_connect(privileged=True) as redis_client:
-    module_id = os.environ["MODULE_ID"]
-    redis_client.delete(f'module/{module_id}/srv/http/prometheus-metrics')
-    redis_client.publish(f'module/{module_id}/event/service-prometheus-metrics-updated', '{}')
+redis_client =  agent.redis_connect(privileged=True)
+module_id = os.environ["MODULE_ID"]
+redis_client.delete(f'module/{module_id}/srv/http/prometheus-metrics')
+redis_client.publish(f'module/{module_id}/event/service-prometheus-metrics-updated', '{}')

@@ -10,15 +10,24 @@ Expose metrics.
 '''
 
 import os
+import json
 
 import agent
 
 # expose service provider
-with agent.redis_connect() as ro_redis_client:
-    host = ro_redis_client.hget(f'node/{os.environ["NODE_ID"]}/vpn', 'ip_address')
-    with agent.redis_connect(privileged=True) as redis_client:
-        module_id = os.environ["MODULE_ID"]
-        redis_client.hset(f'module/{module_id}/srv/http/prometheus-metrics', 'host', host)
-        redis_client.hset(f'module/{module_id}/srv/http/prometheus-metrics',
-                          'path', os.environ["NODE_EXPORTER_PATH"])
-        redis_client.publish(f'module/{module_id}/event/service-prometheus-metrics-updated', '{}')
+ro_redis_client = agent.redis_connect(use_replica=True)
+host = ro_redis_client.hget(f'node/{os.environ["NODE_ID"]}/vpn', 'ip_address')
+
+redis_client = agent.redis_connect(privileged=True)
+module_id = os.environ["MODULE_ID"]
+
+data = {
+    "hosts": [
+        host
+    ],
+    "labels": {
+        "__metrics_path__": os.environ["NODE_EXPORTER_PATH"]
+    }
+}
+redis_client.hset(f'module/{module_id}/srv/http/prometheus-metrics', 'config', json.dumps(data))
+redis_client.publish(f'module/{module_id}/event/service-prometheus-metrics-updated', '{}')
