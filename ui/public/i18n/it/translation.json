@@ -1,1 +1,24 @@
-{}
+{
+    "common": {
+        "required": "Obbligatorio"
+    },
+    "status": {
+        "node": "Nodo",
+        "title": "Stato",
+        "created": "Creato",
+        "services": "Servizio | Servizi",
+        "name": "Nome",
+        "size": "Dimensione",
+        "no_services": "Nessun servizio",
+        "no_images": "Nessuna immagine"
+    },
+    "error": {
+        "network_error": "Errore di rete",
+        "error": "Errore",
+        "404": "Risorsa non trovata",
+        "validation_error": "Errore di validazione"
+    },
+    "action": {
+        "configure-module": "Configura modulo"
+    }
+}
