@@ -10,15 +10,25 @@
         "name": "Nome",
         "size": "Dimensione",
         "no_services": "Nessun servizio",
-        "no_images": "Nessuna immagine"
+        "no_images": "Nessuna immagine",
+        "app_instance": "Istanza app",
+        "app_images": "Immagine app|Immagini app"
     },
     "error": {
         "network_error": "Errore di rete",
         "error": "Errore",
         "404": "Risorsa non trovata",
-        "validation_error": "Errore di validazione"
+        "validation_error": "Errore di validazione",
+        "cannot_retrieve_installed_modules": "Impossibile elencare moduli installati",
+        "cannot_retrieve_module_info": "Impossibile recuperare info modulo"
     },
     "action": {
         "configure-module": "Configura modulo"
+    },
+    "about": {
+        "title": "Informazioni"
+    },
+    "task": {
+        "cannot_create_task": "Impossibile eseguire task [action]"
     }
 }
