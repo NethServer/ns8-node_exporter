@@ -1,7 +1,8 @@
 {
   "name": "node_exporter",
   "description": {
-    "en": "Prometheus node_exporter"
+    "en": "Prometheus node_exporter: it collect system statistics",
+    "it": "Prometheus node_exporter: raccogle le statistiche di sistema"
   },
   "categories": ["monitoring"],
   "authors": [
