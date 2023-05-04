@@ -16,7 +16,8 @@
         "app_instance": "Istanza app",
         "app_images": "Immagine app|Immagini app",
         "installation_node": "Nodo",
-        "mount": "Percorso di mount"
+        "mount": "Percorso di mount",
+        "app_url": "URL pubblico"
     },
     "error": {
         "network_error": "Errore di rete",
@@ -37,7 +38,7 @@
         "get-name": "Visualizza nome",
         "get-status": "Visualizza stato",
         "list-backups": "Elenca backup",
-        "list-installed-modules": "Elenca moduli installati",
+        "list-installed-modules": "Elenco moduli installati",
         "list-backup-repositories": "Elenca repository di backup"
     },
     "about": {
