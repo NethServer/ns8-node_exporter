@@ -12,7 +12,7 @@
         "validation_error": "Error de validación"
     },
     "common": {
-        "required": "Required",
+        "required": "Requerido",
         "work_in_progress": "Trabajando",
         "processing": "Procesando..."
     },
