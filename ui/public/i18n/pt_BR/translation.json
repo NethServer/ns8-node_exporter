@@ -12,7 +12,7 @@
         "validation_error": "Validation error"
     },
     "common": {
-        "required": "Beharrezkoa",
+        "required": "Required",
         "work_in_progress": "Work in progress",
         "processing": "Processing..."
     },
@@ -28,11 +28,10 @@
         "mount": "Mount",
         "title": "Status",
         "installation_node": "Installation node",
-        "node": "Node",
-        "app_url": "URL publikoa"
+        "node": "Node"
     },
     "about": {
-        "title": "Honi buruz"
+        "title": "About"
     },
     "action": {
         "list-backup-repositories": "List backup repositories",
