@@ -24,6 +24,7 @@ buildah add "${container}" imageroot /imageroot
 buildah add "${container}" ui/dist /ui
 buildah config --entrypoint=/ "${container}"
 buildah config --label="org.nethserver.rootfull=1" \
+    --label="org.nethserver.max-per-node=1" \
     --label="org.nethserver.authorizations=traefik@any:routeadm" \
     --label="org.nethserver.flags=no_data_backup" \
 	--label="org.nethserver.images=quay.io/prometheus/node-exporter:v1.5.0" \
