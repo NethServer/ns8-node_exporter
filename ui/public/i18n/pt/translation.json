@@ -12,7 +12,7 @@
         "validation_error": "Validation error"
     },
     "common": {
-        "required": "Beharrezkoa",
+        "required": "Required",
         "work_in_progress": "Work in progress",
         "processing": "Processing..."
     },
@@ -32,7 +32,7 @@
         "app_url": "Public URL"
     },
     "about": {
-        "title": "Honi buruz"
+        "title": "About"
     },
     "action": {
         "list-backup-repositories": "List backup repositories",
