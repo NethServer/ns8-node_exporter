@@ -1,5 +1,7 @@
 # node_exporter
 
+**THIS MODULE HAS BEEN DISMISSED. SINCE core-3.5.0 THE node_exporter IS NOW INSTALLED BY DEFAULT ON ALL NODES**
+
 Start and configure a node_exporter instance.
 The module use the [node_exporter official docker image](https://github.com/prometheus/node_exporter).
 
